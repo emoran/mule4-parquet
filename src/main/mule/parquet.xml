@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:java="http://www.mulesoft.org/schema/mule/java" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd">
+	<flow name="parquetFlow" doc:id="a2208f31-e355-40dc-8d8d-ac1f5037f0b8" >
+		<scheduler doc:name="Scheduler" doc:id="3e7a8757-9084-4bde-b67e-f5538469d888" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="1" startDelay="100" timeUnit="DAYS"/>
+			</scheduling-strategy>
+		</scheduler>
+		<java:invoke-static doc:name="Invoke static" doc:id="57f69ed2-5be0-43dc-96b9-1d7557bc3c36" class="parquet.ParquetReader" method="getParquetData(String filePath)">
+			<java:args ><![CDATA[{
+	filePath: "somePath"	
+}]]></java:args>
+		</java:invoke-static>
+		<logger level="INFO" doc:name="Logger" doc:id="6b30dbca-dabf-4b95-acb6-1a74c8c0ded6" />
+	</flow>
+</mule>
